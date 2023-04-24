@@ -6,6 +6,7 @@
 #include "memlayout.h"
 #include "spinlock.h"
 #include "proc.h"
+#include "sysinfo.h"
 
 uint64
 sys_exit(void)
@@ -94,4 +95,39 @@ sys_uptime(void)
   xticks = ticks;
   release(&tickslock);
   return xticks;
+}
+
+uint64
+sys_trace(void)
+{
+  int mask;
+
+  if(argint(0, &mask) < 0){
+    return -1;
+  }
+
+  myproc()->syscall_trace = mask;
+  return 0;
+}
+
+uint64
+sys_sysinfo(void){
+    //struct sysinfo *s;
+    uint64 addr;    //user pointer to struct stat
+    //st是一个用户虚拟地址，指向结构统计信息。
+    //argfd获取第 n 个字大小的系统调用参数作为文件描述符并返回描述符和相应的结构文件
+    //argaddr检索参数作为指针。不检查合法性，因为复制/复制输出将做到这一点。
+    if(argaddr(0, &addr) < 0){
+      return -1;
+    }
+
+    struct sysinfo sinfo;
+    sinfo.freemem = count_free_mem();
+    sinfo.nproc = count_process();
+
+    if(copyout(myproc()->pagetable, addr, (char*)&sinfo, sizeof(sinfo)))
+      return -1;
+
+    return 0;
+      
 }
