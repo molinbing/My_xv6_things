@@ -126,6 +126,7 @@
 - 我并没有完完整整的自己写完所有实验，反而是在或重或轻的点上左顾右盼，翻完几本操作系统有关的书似乎懂了，又似乎没懂，但也乐在其中而已
 - 感谢开源社区和网络共享资源的帮助，以下是我主要用到或引用的文章：
 	- [[mit6.s081] 笔记 课程总结 & Lab 指北 - 掘金 (juejin.cn)](https://juejin.cn/post/7024644053996142605)
+ 	- [MIT 6.S081 xv6调试不完全指北](https://www.cnblogs.com/KatyuMarisaBlog/p/13727565.html)
 	- OSTEP
 	- CSAPP
 	- Linux Kernel Development
