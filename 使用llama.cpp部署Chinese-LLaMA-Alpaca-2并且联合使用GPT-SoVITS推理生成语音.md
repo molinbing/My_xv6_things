@@ -1,3 +1,4 @@
+# 使用llama.cpp部署Chinese-LLaMA-Alpaca-2并且联合使用GPT-SoVITS推理生成语音
 *本教程使用wsl2-Ubuntu2204进行部署，其他环境请参考[llamacpp_zh · ymcui/Chinese-LLaMA-Alpaca-2 Wiki (github.com)](https://github.com/ymcui/Chinese-LLaMA-Alpaca-2/wiki/llamacpp_zh)和[GPT-SoVITS/docs/cn/README.md at main · RVC-Boss/GPT-SoVITS (github.com)](https://github.com/RVC-Boss/GPT-SoVITS/blob/main/docs/cn/README.md)*
 # Part 1：使用llama.cpp部署Chinese-LLaMA-Alpaca-2
 *以下引用**[原文档](https://github.com/ymcui/Chinese-LLaMA-Alpaca-2/wiki/llamacpp_zh)**教程*
