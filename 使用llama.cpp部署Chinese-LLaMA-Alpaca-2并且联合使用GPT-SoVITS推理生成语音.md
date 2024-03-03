@@ -5,7 +5,7 @@
 >以[llama.cpp工具](https://github.com/ggerganov/llama.cpp)为例，介绍模型量化并在本地部署的详细步骤。Windows则可能需要cmake等编译工具的安装。**本地快速部署体验推荐使用经过指令精调的Alpaca-2模型，有条件的推荐使用6-bit或者8-bit模型，效果更佳。** 运行前请确保：
 >
 >1. 系统应有`make`（MacOS/Linux自带）或`cmake`（Windows需自行安装）编译工具
-2. 建议使用Python 3.10以上编译和运行该工具
+>2. 建议使用Python 3.10以上编译和运行该工具
 >
 >### Step 1: 克隆和编译llama.cpp[](https://github.com/ymcui/Chinese-Mixtral/wiki/llamacpp_zh#step-1-%E5%85%8B%E9%9A%86%E5%92%8C%E7%BC%96%E8%AF%91llamacpp)
 >
@@ -13,7 +13,7 @@
 2. 拉取最新版llama.cpp仓库代码
 >
 >```shell
-$ git clone https://github.com/ggerganov/llama.cpp
+>$ git clone https://github.com/ggerganov/llama.cpp
 >```
 >
 >2. 对llama.cpp项目进行编译，生成`./main`（用于推理）和`./quantize`（用于量化）二进制文件。
