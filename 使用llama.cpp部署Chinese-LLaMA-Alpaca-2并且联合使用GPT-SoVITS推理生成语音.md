@@ -1,11 +1,10 @@
-# 使用llama.cpp部署Chinese-LLaMA-Alpaca-2并且联合使用GPT-SoVITS推理生成语音
 *本教程使用wsl2-Ubuntu2204进行部署，其他环境请参考[llamacpp_zh · ymcui/Chinese-LLaMA-Alpaca-2 Wiki (github.com)](https://github.com/ymcui/Chinese-LLaMA-Alpaca-2/wiki/llamacpp_zh)和[GPT-SoVITS/docs/cn/README.md at main · RVC-Boss/GPT-SoVITS (github.com)](https://github.com/RVC-Boss/GPT-SoVITS/blob/main/docs/cn/README.md)*
 # Part 1：使用llama.cpp部署Chinese-LLaMA-Alpaca-2
 *以下引用**[原文档](https://github.com/ymcui/Chinese-LLaMA-Alpaca-2/wiki/llamacpp_zh)**教程*
 >以[llama.cpp工具](https://github.com/ggerganov/llama.cpp)为例，介绍模型量化并在本地部署的详细步骤。Windows则可能需要cmake等编译工具的安装。**本地快速部署体验推荐使用经过指令精调的Alpaca-2模型，有条件的推荐使用6-bit或者8-bit模型，效果更佳。** 运行前请确保：
 >
 >1. 系统应有`make`（MacOS/Linux自带）或`cmake`（Windows需自行安装）编译工具
->2. 建议使用Python 3.10以上编译和运行该工具
+2. 建议使用Python 3.10以上编译和运行该工具
 >
 >### Step 1: 克隆和编译llama.cpp[](https://github.com/ymcui/Chinese-Mixtral/wiki/llamacpp_zh#step-1-%E5%85%8B%E9%9A%86%E5%92%8C%E7%BC%96%E8%AF%91llamacpp)
 >
@@ -13,7 +12,7 @@
 2. 拉取最新版llama.cpp仓库代码
 >
 >```shell
->$ git clone https://github.com/ggerganov/llama.cpp
+$ git clone https://github.com/ggerganov/llama.cpp
 >```
 >
 >2. 对llama.cpp项目进行编译，生成`./main`（用于推理）和`./quantize`（用于量化）二进制文件。
