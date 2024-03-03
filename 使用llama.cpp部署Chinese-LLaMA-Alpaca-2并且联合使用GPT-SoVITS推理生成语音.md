@@ -179,14 +179,62 @@ $FIRST_INSTRUCTION [/INST]"
 > 稍后返回响应结果。
 
 返回的结果是 json 体的信息，其内容比较多，我们希望只得到文本反馈，那么就需要自己处理一下返回的内容并输出（这也是我没有贴原作者给出的.sh 文件内容的原因）
-通过分析原文件可以得知，我们需要包装 curl 命令并将自己的问题输入到服务器，然后 get 其回答即可，以下为示例代码：
+通过分析原文件可以得知，我们需要包装 curl 命令并将自己的问题输入到服务器，然后 get 其回答即可，以下为示例代码:
 
-# 待补充，包括 7b 文件的软链接
+`inputques.py`
 
 ```python
 import requests
 import json
 import re
+# 定义系统提示
+SYSTEM_PROMPT = "You are a helpful assistant. 你是一个乐于助人的助手。"
+
+# 读取文件中的句子
+with open("你的问题文件路径/questions.txt", "r") as f:
+    prompts = [line.strip() for line in f]
+
+# 服务器地址和端口
+url = "http://localhost:8080/completion"
+
+# 生成请求头
+headers = {
+    "Content-Type": "application/json",
+}
+
+# 遍历提示并发送请求
+for prompt in prompts:
+    # 定义完整提示模板
+    ALL_PROMPT = SYSTEM_PROMPT + prompt
+
+    # 生成请求数据
+    data = {"prompt": ALL_PROMPT, "n_predict": 128}
+
+    # 发送 POST 请求并获取响应
+    response = requests.post(url=url, headers=headers, json=data)
+
+    # 打印响应
+    #print(response.text)
+
+    # 解析 JSON 响应
+    response_data = json.loads(response.text)
+
+    # 提取 prompt 部分
+    prompt = response_data["prompt"]
+
+    # 匹配
+    prompt = re.sub(r"You are a helpful assistant. 你是一个乐于助人的助手。","",prompt)
+    # 打印 prompt
+    print(prompt)
+    # 仅打印 "content" 部分
+    print(response_data["content"])
+    # 打开文件并写入内容
+    with open("储存多次对话内容/answers.txt", "a") as f:
+        f.write(f"prompt: {prompt}\n")
+        f.write(f"content: {response_data['content']}\n")
+    # 单次打开文件并写入内容
+    with open("储存单次回答内容/answer.txt", "w") as f:
+        f.write(f"{response_data['content']}\n")
 ```
 
 ## Part 2：本地部署 GPT-SoVITS
@@ -304,11 +352,40 @@ python3 api.py
 
 这里同样使用 curl 方法推送参数并解析返回值，我已经写成了 python 文件如下：
 
-# 待补充
+`getvoice.py`
 
 ```python
 import requests
 import json
+
+# 读取文本内容
+with open("你的answer文件储存路径/answer.txt", "r") as f:
+    text = f.read()
+
+# 定义请求参数
+url = "http://localhost:9880/"
+headers = {"Content-Type": "application/json"}
+data = {
+    "refer_wav_path": "示例语音，和网页端的要求相同，建议5-10s",
+    "prompt_text": "这是你上面示例语音的文本",
+    "prompt_language": "zh",
+    "text": text,
+    "text_language": "zh",
+}
+
+# 发送请求并获取响应
+response = requests.post(url, headers=headers, data=json.dumps(data))
+
+# 处理结果
+if response.status_code == 200:
+    # 成功
+    # 这里可以将音频数据保存到文件
+    with open("~/output.wav", "wb") as f:
+        f.write(response.content)
+else:
+    # 失败
+    error_info = json.loads(response.content)
+    print(error_info)
 ```
 
 ## Part 3:联合使用 Chinese-LLaMA-Alpaca-2 和 GPT-SoVITS
@@ -324,6 +401,9 @@ import json
   使用 python getvoice.py 读取~llama.cpp/answer.txt 的内容并在~/下生成 wav 文件
 
 大概就是这样 💖
+
 感谢您的阅读 💕
+
+文中 inputques.py 和 getvoice.py 为原创代码，受本文许可保护，引用或修改请标明出处
 
 ~~爱来自 Markdown~~
