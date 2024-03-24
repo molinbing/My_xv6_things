@@ -348,6 +348,31 @@ python inference_webui.py
 python3 api.py
 ```
 
+>这里可能报错： zipfile.BadZipFile: File is not a zip file
+>导航到 zip 文件的预期路径：/home/molin/miniconda3/envs/GPTSoVits/lib/python3.9/site-packages/nltk/data/taggers
+>如果文件丢失，请使用 NLTK 的 download() 函数重新下载：
+>```Python
+>import nltk
+>nltk.download('averaged_perceptron_tagger')
+>```
+>请谨慎使用代码。
+>如果文件存在，请使用 7z 或 unzip 等工具检查其完整性：
+>```Bash
+>7z t taggers/averaged_perceptron_tagger.zip
+>```
+>请谨慎使用代码。
+>如果文件损坏，请删除它并使用 NLTK 的 download() 函数重新下载。
+>
+>验证 NLTK 数据路径是否设置正确。您可以使用以下方法检查：
+>```Python
+>nltk.data.path
+>```
+>
+>如果必要，使用以下方法设置路径：
+>```Python
+>nltk.data.path.append('/path/to/nltk_data')
+>```
+
 这里的端口号是 9880，使用<http://localhost:9880/即可访问。>
 
 这里同样使用 curl 方法推送参数并解析返回值，我已经写成了 python 文件如下：
