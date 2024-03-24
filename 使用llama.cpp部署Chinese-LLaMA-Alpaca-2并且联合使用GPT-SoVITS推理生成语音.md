@@ -275,8 +275,7 @@ conda create -n GPTSoVits python=3.9
 conda activate GPTSoVits
 ```
 
-此时你的命令行前应该会是这样的：
-![[Pasted image 20240303101259.png]]
+
 然后请进入你之前下载好的 GPT-SoVITS 文件夹内，如果此时使用`ls`命令，你可以在里面找到两个文件：`install.sh`和`requirements.txt`
 此时运行指令，等待安装完成即可：
 
@@ -284,7 +283,14 @@ conda activate GPTSoVits
 bash install.sh
 ```
 
-（另：好像用`pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt`也可以安装，这里的回忆缺失了.jpg😭）
+>另：可以用
+>```bash
+>pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+>pip3 uninstall torch torchaudio
+>pip3 install --pre torch torchaudio --index-url https://download.pytorch.org/whl/nightly/cpu
+>```
+>也可以安装，然后再运行`install.sh`即可）
+
 参考教程：[MAC 教程 (yuque.com)](https://www.yuque.com/baicaigongchang1145haoyuangong/ib3g1e/znoph9dtetg437xb)
 （对，我是看着 MAC 的教程安的）
 下次再启动，只需要打开终端，定位到项目目录，进入 conda 环境，运行即可
